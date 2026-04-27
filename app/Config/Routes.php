@@ -1,8 +1,10 @@
 <?php
+
 use CodeIgniter\Router\RouteCollection;
+
 /**
-* @var RouteCollection $routes
-*/
+ * @var RouteCollection $routes
+ */
 // Route default (halaman beranda)
 $routes->get('/', 'Beranda::index');
 $routes->get('welcome', 'Beranda::index');
@@ -17,3 +19,6 @@ $routes->get('waktu', 'Beranda::waktu');
 $routes->get('akademik', 'Akademik::index');
 $routes->get('matkul', 'Akademik::matkul');
 $routes->get('nilai/(:alphanum)', 'Akademik::nilai/$1');
+
+// Route controller Demo 
+$routes->get('demo', 'Demo::index');
