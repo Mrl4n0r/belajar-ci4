@@ -8,6 +8,7 @@ use CodeIgniter\Router\RouteCollection;
 // Route default (halaman beranda)
 $routes->get('/', 'Beranda::index');
 $routes->get('welcome', 'Beranda::index');
+$routes->get('profil', 'Profil::index');
 // Route halaman tentang
 $routes->get('tentang', 'Beranda::tentang');
 // Route dengan parameter numerik
