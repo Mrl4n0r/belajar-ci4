@@ -37,18 +37,28 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('tentang') ?>">
+                        <a class="nav-link <?= str_contains(current_url(), '/galeri') ? 'active' : '' ?>" href="<?= base_url('galeri') ?>">
+                            <i class="bi bi-images"></i> Galeri
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?= current_url() === base_url('tentang') ? 'active' : '' ?>" href="<?= base_url('tentang') ?>">
                             <i class="bi bi-info-circle"></i> Tentang
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?= str_contains(current_url(), '/profil') ? 'active' : '' ?>" href="<?= base_url('profil') ?>">
+                            <i class="bi bi-person-vcard"></i> Profil
                         </a>
                     </li>
                 </ul>
 
                 <div class="navbar-nav">
                     <?php if (session()->get('logged_in')): ?>
-                        <span class="navbar-text me-3 text-light">
+                        <a class="nav-link me-3" href="<?= base_url('profil') ?>">
                             <i class="bi bi-person-circle"></i>
                             <?= esc(session()->get('nama')) ?>
-                        </span>
+                        </a>
                         <a class="btn btn-outline-light btn-sm" href="<?= base_url('logout') ?>">
                             <i class="bi bi-box-arrow-right"></i> Logout
                         </a>
@@ -69,8 +79,8 @@
                         <li class="breadcrumb-item">
                             <a href="<?= base_url('/') ?>">Beranda</a>
                         </li>
-                        <?php foreach ($breadcrumb as $crumb): ?>
-                            <?php if ($loop->last): ?>
+                        <?php foreach ($breadcrumb as $index => $crumb): ?>
+                            <?php if ($index === count($breadcrumb) - 1): ?>
                                 <li class="breadcrumb-item active"><?= esc($crumb['label']) ?></li>
                             <?php else: ?>
                                 <li class="breadcrumb-item">
@@ -128,6 +138,7 @@
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <?= $this->renderSection('scripts') ?>
 </body>
 
 </html>
