@@ -33,7 +33,7 @@ if (!function_exists('format_tanggal')) {
             . date('Y', $timestamp);
     }
 }
-    
+
 
 
 if (!function_exists('format_rupiah')) {
@@ -79,5 +79,43 @@ if (!function_exists('status_badge')) {
         ];
         $warna = $map[strtolower($status)] ?? 'secondary';
         return "<span class='badge bg-{$warna}'>" . ucfirst($status) . "</span>";
+    }
+}
+
+if (!function_exists('inisial_nama')) {
+    /**
+     * Mengambil inisial dari nama lengkap
+     * @param string $namaLengkap Nama lengkap
+     * @return string Inisial nama (contoh: 'Budi Santoso' -> 'BS')
+     */
+    function inisial_nama(string $namaLengkap): string
+    {
+        $nama = trim($namaLengkap);
+        if (empty($nama)) return '';
+
+        $kata = explode(' ', $nama);
+        $inisial = '';
+
+        foreach ($kata as $k) {
+            if (!empty($k)) {
+                $inisial .= strtoupper(substr($k, 0, 1));
+            }
+        }
+
+        return $inisial;
+    }
+}
+
+if (!function_exists('avatar_url')) {
+    /**
+     * Menghasilkan URL avatar dari ui-avatars.com
+     * @param string $nama Nama untuk avatar
+     * @param int $size Ukuran avatar (default 128)
+     * @return string URL avatar
+     */
+    function avatar_url(string $nama, int $size = 128): string
+    {
+        $encodedNama = urlencode($nama);
+        return "https://ui-avatars.com/api/?name={$encodedNama}&size={$size}&background=random&color=fff";
     }
 }
