@@ -21,5 +21,8 @@ $routes->get('akademik', 'Akademik::index');
 $routes->get('matkul', 'Akademik::matkul');
 $routes->get('nilai/(:alphanum)', 'Akademik::nilai/$1');
 
+// Route halaman galeri
+$routes->get('galeri', 'Galeri::index');
+
 // Route controller Demo 
 $routes->get('demo', 'Demo::index');
