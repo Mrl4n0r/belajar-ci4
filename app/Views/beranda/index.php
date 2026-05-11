@@ -1,4 +1,12 @@
 <?= $this->extend('layout/main') ?>
+<?php
+/**
+ * @var string $title
+ * @var string $sapaan
+ * @var array $statistik
+ * @var array $buku_terbaru
+ */
+?>
 <?= $this->section('content') ?>
 
 <!-- Hero Section -->
@@ -39,7 +47,6 @@
             </div>
         </div>
     </div>
-    11
 
     <div class='col-md-3'>
         <div class='card text-center h-100 border-info'>
@@ -59,10 +66,10 @@
         <div class='col-md-4'>
             <div class='card h-100'>
                 <div class='card-body'>
-                    <h5 class='card-title'><?= esc($buku['judul']) ?></h5>
+                    <h5 class='card-title'><?= esc((string) $buku['judul']) ?></h5>
                     <p class='card-text text-muted'>
-                        <i class='bi bi-person'></i> <?= esc($buku['penulis']) ?><br>
-                        <i class='bi bi-calendar'></i> <?= esc($buku['tahun']) ?>
+                        <i class='bi bi-person'></i> <?= esc((string) $buku['penulis']) ?><br>
+                        <i class='bi bi-calendar'></i> <?= esc((string) $buku['tahun']) ?>
                     </p>
                 </div>
                 <div class='card-footer bg-transparent'>
