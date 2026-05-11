@@ -89,15 +89,30 @@ class BukuModel extends Model
     public function getStatistik(): array
     {
         $db = \Config\Database::connect();
+        
+        $totalBuku = $this->countAll();
+        $totalStok = (int) $db->table('buku')->selectSum('stok')->get()->getRow()->stok;
+        
         return [
-            'total'          => $this->countAll(),
-            'total_stok'     => (int)
-            $db->table('buku')->selectSum('stok')->get()->getRow()->stok,
+            'total'          => $totalBuku,
+            'total_stok'     => $totalStok,
+            'rata_stok'      => $totalBuku > 0 ? round($totalStok / $totalBuku, 2) : 0,
             'per_kategori'   => $db->table('buku')
-                ->select('kategori.nama, COUNT(buku.id) AS jumlah')
+                ->select('kategori.nama, COUNT(buku.id) AS jumlah, SUM(buku.stok) AS total_stok_kategori')
                 ->join('kategori', 'kategori.id = buku.kategori_id', 'left')
-                ->groupBy('buku.kategori_id')
+                ->groupBy('kategori.id')
                 ->orderBy('jumlah', 'DESC')
+                ->get()->getResultArray(),
+            'top_stok'       => $db->table('buku')
+                ->select('buku.*, kategori.nama AS nama_kategori')
+                ->join('kategori', 'kategori.id = buku.kategori_id', 'left')
+                ->orderBy('stok', 'DESC')
+                ->limit(5)
+                ->get()->getResultArray(),
+            'stok_kosong'    => $db->table('buku')
+                ->select('buku.*, kategori.nama AS nama_kategori')
+                ->join('kategori', 'kategori.id = buku.kategori_id', 'left')
+                ->where('stok', 0)
                 ->get()->getResultArray(),
         ];
     }
